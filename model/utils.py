@@ -10,10 +10,15 @@ import numpy as np
 
 def compute_metrics(y_true, y_pred, y_prob):
 
-    # Handle AUC for binary vs multiclass
-    try:
+    y_prob = np.array(y_prob)
+
+    if y_prob.ndim == 1:
         auc = roc_auc_score(y_true, y_prob)
-    except:
+
+    elif y_prob.shape[1] == 2:
+        auc = roc_auc_score(y_true, y_prob[:, 1])
+
+    else:
         auc = roc_auc_score(y_true, y_prob, multi_class="ovr")
 
     return {
