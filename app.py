@@ -28,6 +28,8 @@ uploaded_file = st.file_uploader("Upload CSV file", type="csv")
 if uploaded_file is not None:
 
     data = pd.read_csv(uploaded_file)
+    data.replace("?", np.nan, inplace=True)
+    data.dropna(inplace=True)
 
     # Fix income label formatting
     data["income"] = data["income"].astype(str).str.replace(".", "", regex=False).str.strip()
