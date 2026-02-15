@@ -111,15 +111,13 @@ if uploaded_file is not None:
         col3.metric("F1 Score", round(metrics["F1"], 4))
         col3.metric("MCC", round(metrics["MCC"], 4))
 
-        # =============================
         # CONFUSION MATRIX
-        # =============================
 
         st.subheader("Confusion Matrix")
 
         cm = confusion_matrix(y_test, y_pred)
 
-        fig, ax = plt.subplots()
+        fig, ax = plt.subplots(figsize=(4, 3)) 
         sns.heatmap(cm, annot=True, fmt="d", cmap="Blues", ax=ax)
         ax.set_xlabel("Predicted")
         ax.set_ylabel("Actual")
